@@ -8,6 +8,18 @@ public class ObjectPoolTest {
 
     [Test]
     public void sampleTest() {
-        Assert.Pass();
+
+        PoolableBehaviour prefab = new TestablePoolableBehaviour();
+        int initialSize=0;
+        int incrementSize=1;
+        ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
+
+        PoolableBehaviour retrieved = pool.GetFromPool();
+
+        Assert.IsNotNull(retrieved);
+
+
     }
 }
+
+

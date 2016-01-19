@@ -25,6 +25,11 @@ public class ObjectPool {
     public ObjectPool(PoolableBehaviour prefab, int initialSize, int incrementSize) {
         this.prefab = prefab;
         this.incrementSize = incrementSize;
+        if(incrementSize < 1)
+        {
+            incrementSize = 1;
+            Debug.LogError("Non-positive increment requested, defaulting to increment size of 1");
+        }
         pool = new Stack<PoolableBehaviour>(initialSize);
         totalCreated = 0;
 
