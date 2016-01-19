@@ -24,12 +24,20 @@ public class ObjectPool {
 
     public ObjectPool(PoolableBehaviour prefab, int initialSize, int incrementSize) {
         this.prefab = prefab;
-        this.incrementSize = incrementSize;
-        if(incrementSize < 1)
+        if (incrementSize < 1)
         {
-            incrementSize = 1;
+            this.incrementSize = 1;
             Debug.LogError("Non-positive increment requested, defaulting to increment size of 1");
         }
+        else {
+            this.incrementSize = incrementSize;        
+        }
+        if (initialSize < 0)
+        {
+            initialSize = 0;
+            Debug.LogError("Negative initial size requested, defaulting to size of 0");
+        }
+
         pool = new Stack<PoolableBehaviour>(initialSize);
         totalCreated = 0;
 
@@ -49,6 +57,7 @@ public class ObjectPool {
     // return an object to this pool
     public void ReturnToPool(PoolableBehaviour obj) {
         pool.Push(obj);
+        //Debug.Log("Created new object");
     }
 
     // create a specified number of objects and add them to this pool
@@ -56,6 +65,7 @@ public class ObjectPool {
         for (int i = 0; i < num; i++) {
             ReturnToPool(createObject());
         }
+        //Debug.Log("Created " + num + " new objects");
     }
 
     // create a single object and configure for this pool
