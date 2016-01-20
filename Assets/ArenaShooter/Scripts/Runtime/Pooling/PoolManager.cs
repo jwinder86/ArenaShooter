@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[AddComponentMenu("Scripts/Pooling/Pool Manager")]
 public class PoolManager : MonoBehaviour {
 
     // cache a single PoolManager instance, create one if none exists

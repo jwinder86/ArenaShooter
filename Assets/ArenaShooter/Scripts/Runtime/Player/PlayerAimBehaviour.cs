@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Scripts/Player/Player Aim Behaviour")]
 public class PlayerAimBehaviour : MonoBehaviour {
 
     // settings

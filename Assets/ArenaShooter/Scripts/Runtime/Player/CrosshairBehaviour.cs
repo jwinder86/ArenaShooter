@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("Scripts/Player/Crosshair Behaviour")]
 public class CrosshairBehaviour : MonoBehaviour {
 
     // settings

@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
+[AddComponentMenu("Scripts/Player/Player Movement Behaviour")]
 public class PlayerMovementBehaviour : MonoBehaviour {
 
     // components
