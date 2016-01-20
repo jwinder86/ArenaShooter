@@ -3,8 +3,16 @@ using System.Collections;
 
 public static class CustomExtensions {
 
-    // TODO: This is a placeholder method for simplifying damage application
-	public static bool IsDamagable(Collider collider) {
-        return false;
+    // Extension method for easily applying damage to the game object owning a collider.  Returns true if collider is damageable
+    // Ex: bool damageable = collider.ApplyDamage(...);
+	public static bool ApplyDamage(Collider collider, float amount, Vector3 position, Vector3 force, DamageDealer dealer) {
+        DamageReceiver receiver = collider.GetComponentInParent<DamageReceiver>();
+
+        if (receiver == null) {
+            return false;
+        } else {
+            receiver.ApplyDamage(amount, position, force, dealer);
+            return true;
+        }
     }
 }
