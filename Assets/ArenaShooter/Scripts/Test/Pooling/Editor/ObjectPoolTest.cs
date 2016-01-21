@@ -11,8 +11,7 @@ namespace UnitTests {
         [Test]
         public void testEmptyPool() {
 
-            GameObject obj = new GameObject();
-            PoolableBehaviour prefab = obj.AddComponent<TestablePoolableBehaviour>();
+            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>();
             int initialSize = 0;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -25,8 +24,7 @@ namespace UnitTests {
         [Test]
         public void testEmptyPoolInvalidIncrement() {
 
-            GameObject obj = new GameObject();
-            PoolableBehaviour prefab = obj.AddComponent<TestablePoolableBehaviour>();
+            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>();
             int initialSize = 0;
             int incrementSize = -1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -39,8 +37,7 @@ namespace UnitTests {
         [Test]
         public void testInvalidInitialSize() {
 
-            GameObject obj = new GameObject();
-            PoolableBehaviour prefab = obj.AddComponent<TestablePoolableBehaviour>();
+            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>();
             int initialSize = -10;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -54,8 +51,7 @@ namespace UnitTests {
         [Test]
         public void testInitializeLargePool() {
 
-            GameObject obj = new GameObject();
-            PoolableBehaviour prefab = obj.AddComponent<TestablePoolableBehaviour>();
+            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>();
             int initialSize = 100;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -67,8 +63,7 @@ namespace UnitTests {
 
         [Test]
         public void testPoolReuse() {
-            GameObject obj = new GameObject();
-            PoolableBehaviour prefab = obj.AddComponent<TestablePoolableBehaviour>();
+            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>();
             ObjectPool pool = new ObjectPool(prefab, 1, 1);
 
             // pool should never return the prefab itself
