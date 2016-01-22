@@ -94,13 +94,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 231538504}
   - 33: {fileID: 231538503}
-  - 136: {fileID: 231538502}
   - 23: {fileID: 231538501}
   - 143: {fileID: 231538500}
   - 114: {fileID: 231538499}
   - 114: {fileID: 231538505}
   - 114: {fileID: 231538506}
   - 114: {fileID: 231538507}
+  - 114: {fileID: 231538502}
+  - 114: {fileID: 231538508}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -163,19 +164,20 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!136 &231538502
-CapsuleCollider:
+--- !u!114 &231538502
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 231538498}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8822a8e5725d5134dab8bb7b3a01ec8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 11442558, guid: a980ec7c955845a4089262a17a491e48, type: 2}
+  fireInterval: 0.1
+  sprayAngle: 3
 --- !u!33 &231538503
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -242,6 +244,19 @@ MonoBehaviour:
   crosshair: {fileID: 2800000, guid: 39893a3c32d943b4eac594b091e881e8, type: 3}
   crosshairColor: {r: 1, g: 1, b: 1, a: 0.24705882}
   crosshairSize: 0.05
+--- !u!114 &231538508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231538498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff667a2240ecc947b90376104304bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireOriginOffset: {x: 0.5, y: 0, z: 0}
+  fireDistanceOffset: 0.5
 --- !u!1 &717871660
 GameObject:
   m_ObjectHideFlags: 0

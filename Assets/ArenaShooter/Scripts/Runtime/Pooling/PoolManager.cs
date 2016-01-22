@@ -47,6 +47,7 @@ public class PoolManager : MonoBehaviour {
     private void InitializePools() {
         if (poolableObjects == null || initialSizes == null || (poolableObjects.Length == 0 && initialSizes.Length == 0)) {
             Debug.LogWarning("No object pooling configured, pools will be created as requested using initialSize of: " + defaultPoolSize);
+            poolMap = new Dictionary<PoolableBehaviour, ObjectPool>();
         } else if (poolableObjects.Length != initialSizes.Length) {
             Debug.LogError("Poolable Objects (" + poolableObjects.Length + ") doesn't match Initial Sizes (" + initialSizes.Length + ").  Failed to initialize pools.");
             poolMap = new Dictionary<PoolableBehaviour, ObjectPool>();
