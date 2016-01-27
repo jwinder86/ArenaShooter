@@ -14,14 +14,21 @@ public class HealthBehaviour : MonoBehaviour, DamageHandler {
     }
 
     private float currentHealth;
+    public float CurrentHealth {
+        get { return currentHealth; }
+    }
+
     private DeathHandler[] handlers;
 
-    // Use this for initialization
-    void Start () {
-        currentHealth = maxHealth;
-        isAlive = false;
-
+    // called upon instantiation
+    public void Awake() {
         handlers = GetComponentsInChildren<DeathHandler>();
+    }
+
+    // called before first update
+    public void Start () {
+        currentHealth = maxHealth;
+        isAlive = true;
     }
 
     // Add or remove the specified amount of health

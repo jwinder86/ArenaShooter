@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using NUnit.Framework;
 
 namespace UnitTests {
@@ -14,7 +13,7 @@ namespace UnitTests {
             DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -29,7 +28,7 @@ namespace UnitTests {
             MockDamageHandlerBehaviour handler1 = receiver.AddComponent<MockDamageHandlerBehaviour>();
             MockDamageHandlerBehaviour handler2 = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler1.wasDamaged, "Handler1 damaged before test conditions.");
             Assert.False(handler2.wasDamaged, "Handler2 damaged before test conditions.");
@@ -46,7 +45,7 @@ namespace UnitTests {
             MockDamageHandlerBehaviour handler = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             receiver.AddChild(handler);
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -63,7 +62,7 @@ namespace UnitTests {
             receiver.AddChild(handler1);
             handler1.AddChild(handler2);
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler1.wasDamaged, "Handler1 damaged before test conditions.");
             Assert.False(handler2.wasDamaged, "Handler2 damaged before test conditions.");
@@ -80,7 +79,7 @@ namespace UnitTests {
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
             Collider collider = receiver.AddComponent<SphereCollider>();
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -97,7 +96,7 @@ namespace UnitTests {
             receiver.AddChild(handler);
             receiver.AddChild(collider);
 
-            receiver.Start();
+            receiver.Awake();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
