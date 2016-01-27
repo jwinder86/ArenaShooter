@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(PlayerAimBehaviour))]
+[RequireComponent (typeof(CameraAimBehaviour))]
 [AddComponentMenu("Scripts/Player/Player Weapon Behaviour")]
 public class PlayerWeaponBehaviour : MonoBehaviour {
 
@@ -10,12 +10,12 @@ public class PlayerWeaponBehaviour : MonoBehaviour {
 
     // components
     private WeaponBehaviour weapon;
-    private PlayerAimBehaviour aim;
+    private CameraAimBehaviour aim;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         this.weapon = GetComponent<WeaponBehaviour>();
-        this.aim = GetComponent<PlayerAimBehaviour>();
+        this.aim = GetComponent<CameraAimBehaviour>();
 	}
 	
 	// Update is called once per frame
@@ -27,7 +27,7 @@ public class PlayerWeaponBehaviour : MonoBehaviour {
 
             // find direction to fire gun
             Vector3 fireDirection, target;
-            if (aim.AimTarget(out target)) {
+            if (aim.RaycastAim(out target)) {
                 fireDirection = (target - firePosition).normalized;
             } else {
                 fireDirection = aim.AimDirection;

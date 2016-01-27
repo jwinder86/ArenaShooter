@@ -5,7 +5,6 @@ public abstract class PoolableBehaviour : MonoBehaviour {
 
     // private members
     private ObjectPool owner;
-    private bool active;
 
     // Handle activating and enabling the gameobject within the scene.  Use this instead of Start()
     abstract public void Activate();

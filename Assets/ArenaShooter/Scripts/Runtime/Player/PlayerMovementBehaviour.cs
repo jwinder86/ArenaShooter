@@ -12,8 +12,7 @@ public class PlayerMovementBehaviour : MonoBehaviour {
     public float moveSpeed = 3f;
 
     // Use this for initialization
-    void Start() {
-        // retrieve members from this object
+    void Awake() {
         controller = GetComponent<CharacterController>();
     }
 

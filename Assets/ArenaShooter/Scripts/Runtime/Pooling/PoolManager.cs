@@ -37,10 +37,8 @@ public class PoolManager : MonoBehaviour {
     public PoolableBehaviour[] poolableObjects;
     public int[] initialSizes;
 
-    void Start() {
-        if (poolMap == null) {
-            InitializePools();
-        }
+    void Awake() {
+        InitializePools();
     }
 
     // set up initial pooling as configured in editor
@@ -61,10 +59,6 @@ public class PoolManager : MonoBehaviour {
 
     // Get a pooled instance of the specified prefab, creating pool or instances as necessary
     public PoolableBehaviour GetPooledObject(PoolableBehaviour prefab) {
-        if (poolMap == null) {
-            InitializePools();
-        }
-
         if (!poolMap.ContainsKey(prefab)) {
             poolMap[prefab] = new ObjectPool(prefab, defaultPoolSize);
             Debug.LogWarning("Creating pool for uninitialized prefab: " + prefab + " with initial size of " + defaultPoolSize);
