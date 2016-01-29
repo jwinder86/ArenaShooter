@@ -18,7 +18,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        playerLocation = FindObjectOfType<PlayerMovementBehaviour>().GetComponent<Transform>();
+        playerLocation = FindObjectOfType<PlayerMovementBehaviour>().transform;
         rb = GetComponent<Rigidbody>();
         startPos = transform.position;
     }
@@ -40,8 +40,9 @@ public class EnemyBehaviour : MonoBehaviour {
        
         Vector3 variance = Random.onUnitSphere * 0.8F;
         
-        Vector3 direction = (playerLocation.position - transform.position + variance).normalized;
-
+        Vector3 direction = (playerLocation.position - transform.position + variance);
+        direction.y = 0F;
+        direction = direction.normalized;
        /* Debug.Log("playerLocation: " + playerLocation.position);
         Debug.Log("enemyLocation: " + transform.position);
         Debug.Log("variance: " + variance);
