@@ -10,14 +10,12 @@ namespace UnitTests {
 
         [Test]
         public void TestHealthRemoved() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
             HealthBehaviour health = receiver.AddComponent<HealthBehaviour>();
 
             health.maxHealth = 1f;
 
-            receiver.Awake();
-            health.Awake();
-            health.Start();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.True(health.IsAlive, "Dead before taking damage");
             Assert.AreEqual(1f, health.CurrentHealth, 0.001f, "Health doesn't match specified value");
@@ -35,15 +33,13 @@ namespace UnitTests {
 
         [Test]
         public void TestDeathHandler() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
             HealthBehaviour health = receiver.AddComponent<HealthBehaviour>();
             MockDeathHandlerBehaviour handler = receiver.AddComponent<MockDeathHandlerBehaviour>();
 
             health.maxHealth = 1f;
 
-            receiver.Awake();
-            health.Awake();
-            health.Start();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler.isDead, "Handler dead before taking damage");
 

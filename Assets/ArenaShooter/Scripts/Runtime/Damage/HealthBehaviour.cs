@@ -21,12 +21,12 @@ public class HealthBehaviour : MonoBehaviour, DamageHandler {
     private DeathHandler[] handlers;
 
     // called upon instantiation
-    public void Awake() {
+    void Awake() {
         handlers = GetComponentsInChildren<DeathHandler>();
     }
 
     // called before first update
-    public void Start () {
+    void Start () {
         currentHealth = maxHealth;
         isAlive = true;
     }

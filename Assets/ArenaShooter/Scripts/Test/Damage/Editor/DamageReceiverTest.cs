@@ -10,10 +10,10 @@ namespace UnitTests {
         [Test]
         public void SingleDamageHandlerTest() {
 
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -24,11 +24,11 @@ namespace UnitTests {
 
         [Test]
         public void MultipleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler1 = receiver.AddComponent<MockDamageHandlerBehaviour>();
             MockDamageHandlerBehaviour handler2 = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler1.wasDamaged, "Handler1 damaged before test conditions.");
             Assert.False(handler2.wasDamaged, "Handler2 damaged before test conditions.");
@@ -41,11 +41,11 @@ namespace UnitTests {
 
         [Test]
         public void NestedSingleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             receiver.AddChild(handler);
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -56,13 +56,13 @@ namespace UnitTests {
 
         [Test]
         public void NestedMultipleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler1 = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             MockDamageHandlerBehaviour handler2 = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             receiver.AddChild(handler1);
             handler1.AddChild(handler2);
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler1.wasDamaged, "Handler1 damaged before test conditions.");
             Assert.False(handler2.wasDamaged, "Handler2 damaged before test conditions.");
@@ -75,11 +75,11 @@ namespace UnitTests {
 
         [Test]
         public void ColliderDamagerHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
             Collider collider = receiver.AddComponent<SphereCollider>();
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 
@@ -90,13 +90,13 @@ namespace UnitTests {
 
         [Test]
         public void NestedColliderDamagerHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>();
+            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             Collider collider = TestHelpers.CreateObjectWithComponent<SphereCollider>();
             receiver.AddChild(handler);
             receiver.AddChild(collider);
 
-            receiver.Awake();
+            receiver.CallAwakeAndStartRecursive();
 
             Assert.False(handler.wasDamaged, "Handler damaged before test conditions.");
 

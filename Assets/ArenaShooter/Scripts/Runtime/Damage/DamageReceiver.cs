@@ -9,7 +9,7 @@ public class DamageReceiver : MonoBehaviour {
     private DamageHandler[] handlers;
 
 	// Use this for initialization
-	public void Awake () {
+	void Awake () {
         // find all damage handlers
         handlers = GetComponentsInChildren<DamageHandler>();
 	}

@@ -41,7 +41,6 @@ public class CameraAimBehaviour : MonoBehaviour {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
         camera = Camera.main.transform;
         this.aim = GetComponent<PlayerAimBehaviour>();
-
     }
 
     // called before first Update
@@ -49,8 +48,13 @@ public class CameraAimBehaviour : MonoBehaviour {
         cameraDist = cameraOffset;
         cameraDistSpeed = 0f;
 
-        // Copy texture to transparency material
+        // get current material
         defaultMaterial = charRenderer.sharedMaterial;
+
+        // clone editor's material
+        transparencyMaterial = new Material(transparencyMaterial);
+
+        // Copy texture to transparency material
         transparencyMaterial.SetTexture("_MainTex", defaultMaterial.GetTexture("_MainTex"));
         transparencyMaterial.color = defaultMaterial.color;
     }
@@ -84,6 +88,7 @@ public class CameraAimBehaviour : MonoBehaviour {
 
     // Fade out player depending on camera distance
     private void FadeCameraDistance(float distance) {
+        Debug.Log("Dist: " + distance);
         if (distance >= maxFadeDistance) {
             charRenderer.enabled = true;
             charRenderer.material = defaultMaterial;
