@@ -47,7 +47,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 146a0fb7b250e344a8278d3e04cf5d62, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireOriginOffset: {x: 0.5, y: 0, z: 0}
   fireDistanceOffset: 0.5
+  config: {fileID: 11400000, guid: 25c8bdb14d8e8c0449560f67e42887cc, type: 2}
 --- !u!114 &11449978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -122,6 +123,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 11442558, guid: a980ec7c955845a4089262a17a491e48, type: 2}
   fireInterval: 0.1
   sprayAngle: 3
+  inFireInterval: 0
 --- !u!114 &11478834
 MonoBehaviour:
   m_ObjectHideFlags: 1
