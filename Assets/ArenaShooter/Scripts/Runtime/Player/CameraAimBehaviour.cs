@@ -88,7 +88,6 @@ public class CameraAimBehaviour : MonoBehaviour {
 
     // Fade out player depending on camera distance
     private void FadeCameraDistance(float distance) {
-        Debug.Log("Dist: " + distance);
         if (distance >= maxFadeDistance) {
             charRenderer.enabled = true;
             charRenderer.material = defaultMaterial;

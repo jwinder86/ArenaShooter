@@ -8,18 +8,32 @@ public class PlayerWeaponBehaviour : MonoBehaviour {
     public Vector3 fireOriginOffset;
     public float fireDistanceOffset;
 
+    public WeaponConfig config;
+
     // components
-    private WeaponBehaviour weapon;
     private CameraAimBehaviour aim;
 
-	// Use this for initialization
+    // state
+    private Weapon weapon;
+
+	// Use this configure references
 	void Awake () {
-        this.weapon = GetComponent<WeaponBehaviour>();
         this.aim = GetComponent<CameraAimBehaviour>();
 	}
+
+    // Use this for initialization
+    void Start() {
+        if (config.Validate()) {
+            weapon = new Weapon(config);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        // update weapon's internal timer
+        weapon.UpdateTimer(Time.deltaTime);
+
+        // try to fire weapon
 	    if (Input.GetButton("Fire1") && weapon.CanFire) {
 
             // find position to fire gun from
