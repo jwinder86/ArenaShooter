@@ -10,7 +10,7 @@ namespace UnitTests {
 
         [Test]
         public void TestHealthRemoved() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
             HealthBehaviour health = receiver.AddComponent<HealthBehaviour>();
 
             health.maxHealth = 1f;
@@ -33,7 +33,7 @@ namespace UnitTests {
 
         [Test]
         public void TestDeathHandler() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Health Test");
             HealthBehaviour health = receiver.AddComponent<HealthBehaviour>();
             MockDeathHandlerBehaviour handler = receiver.AddComponent<MockDeathHandlerBehaviour>();
 

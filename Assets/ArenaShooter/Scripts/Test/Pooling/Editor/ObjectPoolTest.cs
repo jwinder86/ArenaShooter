@@ -11,7 +11,7 @@ namespace UnitTests {
         [Test]
         public void testEmptyPool() {
 
-            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("PoolableDummy");
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
             int initialSize = 0;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -24,7 +24,7 @@ namespace UnitTests {
         [Test]
         public void testEmptyPoolInvalidIncrement() {
 
-            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("PoolableDummy");
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
             int initialSize = 0;
             int incrementSize = -1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -37,7 +37,7 @@ namespace UnitTests {
         [Test]
         public void testInvalidInitialSize() {
 
-            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("PoolableDummy");
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
             int initialSize = -10;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -51,7 +51,7 @@ namespace UnitTests {
         [Test]
         public void testInitializeLargePool() {
 
-            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("PoolableDummy");
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
             int initialSize = 100;
             int incrementSize = 1;
             ObjectPool pool = new ObjectPool(prefab, initialSize, incrementSize);
@@ -63,7 +63,7 @@ namespace UnitTests {
 
         [Test]
         public void testPoolReuse() {
-            PoolableBehaviour prefab = TestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("PoolableDummy");
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
             ObjectPool pool = new ObjectPool(prefab, 1, 1);
 
             // pool should never return the prefab itself
@@ -78,6 +78,17 @@ namespace UnitTests {
             retrieved.ReturnToPool();
             PoolableBehaviour retrieved3 = pool.GetFromPool();
             Assert.AreEqual(retrieved, retrieved3, "Pool did not re-use returned object");
+        }
+
+        [Test]
+        public void testAutoPoolManagerCreation() {
+            PoolableBehaviour prefab = RuntimeTestHelpers.CreatePrefabWithComponent<TestablePoolableBehaviour>("Test Poolable");
+
+            // request object without pre-creating PoolManager
+            PoolableBehaviour obj = PoolManager.Instance.GetPooledObject(prefab);
+
+            Assert.NotNull(obj, "Retrieved null object from pool");
+            Assert.AreNotEqual(prefab, obj, "Received prefab itself from pool");
         }
     }
 }

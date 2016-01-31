@@ -10,7 +10,7 @@ namespace UnitTests {
         [Test]
         public void SingleDamageHandlerTest() {
 
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
             receiver.CallAwakeAndStartRecursive();
@@ -24,7 +24,7 @@ namespace UnitTests {
 
         [Test]
         public void MultipleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler1 = receiver.AddComponent<MockDamageHandlerBehaviour>();
             MockDamageHandlerBehaviour handler2 = receiver.AddComponent<MockDamageHandlerBehaviour>();
 
@@ -41,8 +41,8 @@ namespace UnitTests {
 
         [Test]
         public void NestedSingleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
-            MockDamageHandlerBehaviour handler = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            MockDamageHandlerBehaviour handler = RuntimeTestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             receiver.AddChild(handler);
 
             receiver.CallAwakeAndStartRecursive();
@@ -56,9 +56,9 @@ namespace UnitTests {
 
         [Test]
         public void NestedMultipleDamageHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
-            MockDamageHandlerBehaviour handler1 = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
-            MockDamageHandlerBehaviour handler2 = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            MockDamageHandlerBehaviour handler1 = RuntimeTestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
+            MockDamageHandlerBehaviour handler2 = RuntimeTestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
             receiver.AddChild(handler1);
             handler1.AddChild(handler2);
 
@@ -75,7 +75,7 @@ namespace UnitTests {
 
         [Test]
         public void ColliderDamagerHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
             MockDamageHandlerBehaviour handler = receiver.AddComponent<MockDamageHandlerBehaviour>();
             Collider collider = receiver.AddComponent<SphereCollider>();
 
@@ -90,9 +90,9 @@ namespace UnitTests {
 
         [Test]
         public void NestedColliderDamagerHandlerTest() {
-            DamageReceiver receiver = TestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
-            MockDamageHandlerBehaviour handler = TestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
-            Collider collider = TestHelpers.CreateObjectWithComponent<SphereCollider>();
+            DamageReceiver receiver = RuntimeTestHelpers.CreateObjectWithComponent<DamageReceiver>("Damage Receiver");
+            MockDamageHandlerBehaviour handler = RuntimeTestHelpers.CreateObjectWithComponent<MockDamageHandlerBehaviour>();
+            Collider collider = RuntimeTestHelpers.CreateObjectWithComponent<SphereCollider>();
             receiver.AddChild(handler);
             receiver.AddChild(collider);
 

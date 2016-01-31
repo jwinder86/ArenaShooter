@@ -5,7 +5,9 @@ using System.Reflection;
 #if UNITY_EDITOR
 
 namespace UnitTests {
-    public static class TestHelpers {
+
+    // Unit Test helpers which are compiled in the Runtime assembly.  These can perform runtime operations, such as instantiating GameObjects.
+    public static class RuntimeTestHelpers {
 
         // Create a game object with specified component, call Awake if possible
         public static T CreateObjectWithComponent<T>(string name = "New Test Object") where T : Component {
@@ -39,6 +41,7 @@ namespace UnitTests {
             obj.CallPrivateMethodRecursive("Start");
         }
 
+        // call the same private method on all components under a gameobject
         private static void CallPrivateMethodRecursive(this Component component, string methodName) {
             MonoBehaviour[] behaviours = component.GetComponentsInChildren<MonoBehaviour>();
             foreach (MonoBehaviour behaviour in behaviours) {
@@ -46,6 +49,7 @@ namespace UnitTests {
             }
         }
 
+        // call a private method on a specific component
         private static void ComponentPrivateMethod<T>(this T component, string methodName) where T : Component {
             MethodInfo method = component.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (method != null) {
@@ -65,6 +69,7 @@ namespace UnitTests {
             }
         }
 
+        // Call a private static method
         public static object CallPrivateMethod(this System.Type type, string methodName, params object[] parameters) {
             MethodInfo method = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
             if (method != null) {
@@ -73,6 +78,11 @@ namespace UnitTests {
                 Debug.LogError("No private method \"" + methodName + "\" in script: " + type);
                 return null;
             }
+        }
+
+        // Determine if two vectors are equal, considering a delta
+        public static bool EqualsDelta(this Vector3 vector, Vector3 other, float delta) {
+            return (vector - other).magnitude < delta;
         }
     }
 }
