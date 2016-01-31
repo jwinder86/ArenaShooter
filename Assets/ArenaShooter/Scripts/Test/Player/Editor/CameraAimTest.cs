@@ -11,7 +11,6 @@ namespace UnitTests {
         [Test]
         public void testCameraFade() {
             CameraAimBehaviour camera = TestHelpers.CreateObjectWithComponent<CameraAimBehaviour>("Camera Aim");
-            camera.AddComponent<PlayerAimBehaviour>();
             MeshRenderer renderer = camera.AddComponent<MeshRenderer>();
             
             renderer.sharedMaterial = new Material(Shader.Find("Standard"));

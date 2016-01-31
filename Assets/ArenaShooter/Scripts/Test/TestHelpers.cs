@@ -54,13 +54,24 @@ namespace UnitTests {
             }
         }
 
-        // Call a private MonoBehaviour method
-        public static void CallPrivateMethod(this MonoBehaviour script, string methodName, params object[] parameters) {
+        // Call a private method
+        public static object CallPrivateMethod(this object script, string methodName, params object[] parameters) {
             MethodInfo method = script.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
             if (method != null) {
-                method.Invoke(script, parameters);
+                return method.Invoke(script, parameters);
             } else {
                 Debug.LogError("No private method \"" + methodName + "\" in script: " + script.GetType());
+                return null;
+            }
+        }
+
+        public static object CallPrivateMethod(this System.Type type, string methodName, params object[] parameters) {
+            MethodInfo method = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);
+            if (method != null) {
+                return method.Invoke(null, parameters);
+            } else {
+                Debug.LogError("No private method \"" + methodName + "\" in script: " + type);
+                return null;
             }
         }
     }

@@ -25,7 +25,7 @@ public class Weapon {
     // Fire weapon, if not in the delay interval
     public bool FireWeapon(Vector3 position, Vector3 direction, DamageDealer dealer) {
         if (fireIntervalRemaining <= 0f) {
-            Vector3 fireDirection = randomOffset(direction, config.sprayAngle);
+            Vector3 fireDirection = RandomDirectionOffset(direction, config.sprayAngle);
             ProjectileBehaviour projectile = (ProjectileBehaviour)PoolManager.Instance.GetPooledObject(config.projectilePrefab);
             projectile.InitializeAndActivate(position, fireDirection, dealer);
 
@@ -39,7 +39,7 @@ public class Weapon {
     }
 
     // Rotate input vector by a random amount up to sprayDegrees
-    private Vector3 randomOffset(Vector3 input, float sprayAngle) {
-        return Quaternion.Lerp(Quaternion.identity, Random.rotation, sprayAngle / 360f) * input;
+    private static Vector3 RandomDirectionOffset(Vector3 input, float maxAngle) {
+        return Quaternion.Lerp(Quaternion.identity, Random.rotation, maxAngle / 360f) * input;
     }
 }
