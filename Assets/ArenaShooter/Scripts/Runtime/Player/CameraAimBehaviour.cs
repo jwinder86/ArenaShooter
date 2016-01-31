@@ -39,7 +39,7 @@ public class CameraAimBehaviour : MonoBehaviour {
     // called when object instantiated
     void Awake() {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
-        camera = Camera.main.transform;
+        camera = FindMainCamera();
         this.aim = GetComponent<PlayerAimBehaviour>();
     }
 
@@ -114,6 +114,15 @@ public class CameraAimBehaviour : MonoBehaviour {
             target = camera.transform.position + aimDirection * maxAimDistance;
             Debug.Log("Aiming at nothing");
             return false;
+        }
+    }
+
+    private Transform FindMainCamera() {
+        if (Camera.main != null) {
+            return Camera.main.transform;
+        } else {
+            Debug.LogError("No camera found in scene, possibly a unit test");
+            return new GameObject("Dummy Camera").transform;
         }
     }
 }
