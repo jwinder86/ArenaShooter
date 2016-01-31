@@ -11,7 +11,7 @@ namespace UnitTests {
         [Test]
         public void testFireDelay() {
             WeaponConfig config = new WeaponConfig();
-            config.projectilePrefab = TestHelpers.CreatePrefabWithComponent<ProjectileBehaviour>();
+            config.projectilePrefab = RuntimeTestHelpers.CreatePrefabWithComponent<ProjectileBehaviour>();
             config.fireInterval = 1f;
             config.sprayAngle = 0f;
 
@@ -45,7 +45,7 @@ namespace UnitTests {
         [Test]
         public void testSprayAngle() {
             WeaponConfig config = new WeaponConfig();
-            config.projectilePrefab = TestHelpers.CreatePrefabWithComponent<ProjectileBehaviour>();
+            config.projectilePrefab = RuntimeTestHelpers.CreatePrefabWithComponent<ProjectileBehaviour>();
             config.fireInterval = 1f;
             config.sprayAngle = 10f;
 
