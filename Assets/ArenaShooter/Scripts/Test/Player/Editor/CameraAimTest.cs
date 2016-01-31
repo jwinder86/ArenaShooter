@@ -10,7 +10,9 @@ namespace UnitTests {
 
         [Test]
         public void testCameraFade() {
-            CameraAimBehaviour camera = TestHelpers.CreateObjectWithComponent<CameraAimBehaviour>("Camera Aim");
+            ensureCameraExists();
+
+            CameraAimBehaviour camera = RuntimeTestHelpers.CreateObjectWithComponent<CameraAimBehaviour>("Camera Aim");
             MeshRenderer renderer = camera.AddComponent<MeshRenderer>();
             
             renderer.sharedMaterial = new Material(Shader.Find("Standard"));
@@ -43,6 +45,13 @@ namespace UnitTests {
 
             Assert.IsTrue(renderer.enabled, "Renderer not displayed");
             Assert.AreNotEqual(renderer.sharedMaterial, camera.transparencyMaterial, "Using transparent material when too far away.");
+        }
+
+        private void ensureCameraExists() {
+            if (Camera.main == null) {
+                Camera camera = RuntimeTestHelpers.CreateObjectWithComponent<Camera>("Main Camera");
+                camera.tag = "MainCamera";
+            }
         }
     }
 }
