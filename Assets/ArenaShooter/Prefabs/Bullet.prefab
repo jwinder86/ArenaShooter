@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 459534}
   - 114: {fileID: 11442558}
+  - 96: {fileID: 9645804}
+  - 114: {fileID: 11465220}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -26,6 +28,7 @@ GameObject:
   - 4: {fileID: 472690}
   - 33: {fileID: 3347378}
   - 23: {fileID: 2340290}
+  - 114: {fileID: 11403910}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -40,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -2.19}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 472690}
@@ -91,6 +94,64 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191866}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!96 &9645804
+TrailRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153720}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: d7f82dfbe30426c45b067dbe19878fe0, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 0
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Time: 0.3
+  m_StartWidth: 0.1
+  m_EndWidth: 0.01
+  m_Colors:
+    m_Color[0]:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_Color[1]:
+      serializedVersion: 2
+      rgba: 3238002687
+    m_Color[2]:
+      serializedVersion: 2
+      rgba: 2164260863
+    m_Color[3]:
+      serializedVersion: 2
+      rgba: 1090519039
+    m_Color[4]:
+      serializedVersion: 2
+      rgba: 33554431
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
+--- !u!114 &11403910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d2f35e3b60f9c42a6434259ef0a7fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11442558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,12 +163,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f08c0f0c22940e43876da21314eb6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   lifetime: 3
   damage: 1
   force: 1
   useRadius: 0
   radius: 0
+  hitParticles: {fileID: 11445934, guid: 0b0094d098dad8e40b4efb1cd4182cd9, type: 2}
+--- !u!114 &11465220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 153720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6d0f0aa5ddc844c946066458e4ed65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -117,12 +190,77 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: speed
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: lifetime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_UseLightProbes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_StartWidth
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_EndWidth
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[0].rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7f82dfbe30426c45b067dbe19878fe0, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Time
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[2].rgba
+      value: 2164260863
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[3].rgba
+      value: 1090519039
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[4].rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Colors.m_Color[1].rgba
+      value: 3238002687
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hitParticles
+      value: 
+      objectReference: {fileID: 11445934, guid: 0b0094d098dad8e40b4efb1cd4182cd9,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 153720}

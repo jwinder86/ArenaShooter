@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -14,17 +14,30 @@ public class ProjectileBehaviour : PoolableBehaviour {
     public bool useRadius = false;
     public float radius = 0f;
 
+    public ParticleBehaviour hitParticles;
+
     // private state
     private Vector3 direction;
     private DamageDealer dealer;
     private float lifeRemaining;
-
     private Vector3 raycastGoal;
+    private bool alive;
+
+    private ProjectileEffect[] cachedEffects;
+    private ProjectileEffect[] effects {
+        get {
+            if (cachedEffects == null) {
+                cachedEffects = GetComponentsInChildren<ProjectileEffect>(true);
+            }
+            return cachedEffects;
+        }
+    }
+
+    // readonly properties
     public Vector3 PhysicsPosition {
         get { return raycastGoal; }
     }
 
-    private bool alive;
     public bool IsAlive {
         get { return alive; }
     }
@@ -35,11 +48,17 @@ public class ProjectileBehaviour : PoolableBehaviour {
         raycastGoal = transform.position;
 
         gameObject.SetActive(true);
+
+        // activate effects
+        Array.ForEach(effects, e => e.OnActivate(direction));
     }
 
     // Call to remove projectile from scene.
     public override void Deactivate() {
         gameObject.SetActive(false);
+
+        // deactivate effects
+        Array.ForEach(effects, e => e.OnDeactivate());
     }
 
     // Initialize bullet with direction and dealer, then activate
@@ -80,7 +99,7 @@ public class ProjectileBehaviour : PoolableBehaviour {
         if (alive) {
             lifeRemaining -= time;
             if (lifeRemaining <= 0f) {
-                StopProjectile();
+                StartCoroutine(StopProjectile());
             }
         }
     }
@@ -132,15 +151,42 @@ public class ProjectileBehaviour : PoolableBehaviour {
             Debug.Log("Applied damage to: " + hit.transform, this);
         }
 
-        StopProjectile();
+        // spawn hit particles
+        if (hitParticles != null) {
+            ParticleBehaviour p = (ParticleBehaviour)PoolManager.Instance.GetPooledObject(hitParticles);
+            p.transform.position = hit.point;
+            p.transform.LookAt(hit.point + hit.normal);
+            p.Activate();
+        }
+
+        StartCoroutine(StopProjectile());
     }
 
     // handle cleaning up the projectile and disabling any effects
-    private void StopProjectile() {
+    private IEnumerator StopProjectile() {
+        if (!alive) {
+            yield break;
+        }
+
         lifeRemaining = 0f;
         alive = false;
 
-        //TODO: wait for any effects to complete here!
+        // find max effect delay
+        float delay = 0f;
+        Array.ForEach(effects, e => {
+            delay = Mathf.Max(delay, e.CleanUpTime);
+        });
+
+        // tell effects to cleanup
+        Array.ForEach(effects, e => e.CleanUp());
+
+        // do nothing while effects cleanup
+        yield return new WaitForSeconds(delay);
+
+        // check for any effects not yet cleaned up
+        while (Array.Exists(effects, e => !e.IsCleanedUp)) {
+            yield return null;
+        }
 
         ReturnToPool();
     }
