@@ -16,6 +16,11 @@ public class EnemyWeaponBehaviour : MonoBehaviour {
     // state
     private Weapon weapon;
 
+    private bool canFire;
+    public void setCanFire(bool canFire)
+    {
+        this.canFire = canFire;
+    }
 
     // Use this for initialization
     void Start () {
@@ -24,8 +29,9 @@ public class EnemyWeaponBehaviour : MonoBehaviour {
             weapon = new Weapon(config);
         }
         aimDirection = transform.forward;
-
+        this.canFire = false;
     }
+    
 
     // Update is called once per frame
     void Update () {
@@ -33,21 +39,23 @@ public class EnemyWeaponBehaviour : MonoBehaviour {
         aimDirection = transform.forward;
 
         // try to fire weapon
+        if (canFire)
+        {
+            // find position to fire gun from
+            Vector3 firePosition = transform.position + transform.TransformDirection(fireOriginOffset);
 
-        // find position to fire gun from
-        Vector3 firePosition = transform.position + transform.TransformDirection(fireOriginOffset);
+            // find direction to fire gun
+            Vector3 fireDirection;
 
-        // find direction to fire gun
-        Vector3 fireDirection;
+            fireDirection = aimDirection;
 
-        fireDirection = aimDirection;
-       
 
-        // move fire position forward to avoid self-shooting
-        firePosition += fireDirection * fireDistanceOffset;
+            // move fire position forward to avoid self-shooting
+            firePosition += fireDirection * fireDistanceOffset;
 
-        // fire weapon
-        weapon.FireWeapon(firePosition, fireDirection, DamageDealer.Enemy);
+            // fire weapon
+            weapon.FireWeapon(firePosition, fireDirection, DamageDealer.Enemy);
+        }
         
     }
 }

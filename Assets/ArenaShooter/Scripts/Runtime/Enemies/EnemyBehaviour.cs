@@ -20,13 +20,14 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
     private Transform playerLocation;
 
     private Rigidbody rb;
-    private 
+    private EnemyWeaponBehaviour wb;
 
     // Use this for initialization
     void Start () {
         playerLocation = FindObjectOfType<PlayerMovementBehaviour>().transform;
         rb = GetComponent<Rigidbody>();
         //startPos = transform.position;
+        wb = GetComponent<EnemyWeaponBehaviour>();
     }
 	
 	// Update is called once per frame
@@ -37,10 +38,19 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
         // simplistic version, may want to adjust this to move away from player when too close, 
         //    rather than just not adding more force to get closer
         float distanceFromPlayer = (transform.position - playerLocation.position).magnitude;
-        if (distanceFromPlayer < detectionRange && distanceFromPlayer > followRange)
+
+        if (distanceFromPlayer < detectionRange) {
+            wb.setCanFire(true);
+            if (distanceFromPlayer > followRange)
+            {
+
+                // Debug.Log("follow player");
+                FollowPlayer(accelleration);
+            }
+        }
+        else
         {
-           // Debug.Log("follow player");
-            FollowPlayer(accelleration);
+            wb.setCanFire(false);
         }
     }
 
@@ -53,7 +63,8 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
         Vector3 direction = (playerLocation.position - transform.position + variance);
         direction.y = 0F;
         direction = direction.normalized;
-       /* Debug.Log("playerLocation: " + playerLocation.position);
+        transform.LookAt(playerLocation);
+        /* Debug.Log("playerLocation: " + playerLocation.position);
         Debug.Log("enemyLocation: " + transform.position);
         Debug.Log("variance: " + variance);
         Debug.Log("Direction: " + direction);*/
@@ -68,7 +79,7 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
         //rb.AddForce(new Vector3(0f, 0f, angle), ForceMode.Acceleration);
         // rb.AddRelativeForce(direction, ForceMode.Acceleration);
 
-       rb.AddForce(direction * accelleration, ForceMode.Acceleration);
+        rb.AddForce(direction * accelleration, ForceMode.Acceleration);
     }
 
 
