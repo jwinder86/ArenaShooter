@@ -15,6 +15,7 @@ GameObject:
   - 114: {fileID: 11472918}
   - 114: {fileID: 11492132}
   - 114: {fileID: 11415378}
+  - 114: {fileID: 11429812}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -80,7 +81,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &11415378
 MonoBehaviour:
@@ -94,6 +95,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 25
+--- !u!114 &11429812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ae70cd129702f4bbc8c4e8bbb79522, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireOriginOffset: {x: 0, y: 0, z: 0}
+  fireDistanceOffset: 0
+  config: {fileID: 11400000, guid: 001afade6842b59418001f1e41cb5f2f, type: 2}
 --- !u!114 &11472918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae9a0b741ebc1841a20736cb2d91eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelleration: 5
+  accelleration: 4
   detectionRange: 15
   followRange: 5
 --- !u!114 &11492132
@@ -140,7 +155,20 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_Constraints
-      value: 80
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: 001afade6842b59418001f1e41cb5f2f,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: accelleration
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

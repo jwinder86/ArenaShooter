@@ -47,6 +47,7 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
                 // Debug.Log("follow player");
                 FollowPlayer(accelleration);
             }
+            transform.LookAt(playerLocation);
         }
         else
         {
@@ -63,7 +64,7 @@ public class EnemyBehaviour : MonoBehaviour, DeathHandler {
         Vector3 direction = (playerLocation.position - transform.position + variance);
         direction.y = 0F;
         direction = direction.normalized;
-        transform.LookAt(playerLocation);
+        
         /* Debug.Log("playerLocation: " + playerLocation.position);
         Debug.Log("enemyLocation: " + transform.position);
         Debug.Log("variance: " + variance);
