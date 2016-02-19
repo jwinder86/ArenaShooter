@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(PlayerAimBehaviour))]
@@ -26,6 +26,7 @@ public class CameraAimBehaviour : MonoBehaviour {
 
     new private Transform camera;
     private PlayerAimBehaviour aim;
+    private PlayerManager manager;
 
     // distance between camera and player
     private float cameraDist;
@@ -36,11 +37,15 @@ public class CameraAimBehaviour : MonoBehaviour {
     // default material for renderer
     private Material defaultMaterial;
 
+    private Vector3 aimDirection;
+
     // called when object instantiated
     void Awake() {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
         camera = Camera.main.transform;
-        this.aim = GetComponent<PlayerAimBehaviour>();
+
+        aim = GetComponent<PlayerAimBehaviour>();
+        manager = GetComponent<PlayerManager>();
     }
 
     // called before first Update
@@ -57,11 +62,15 @@ public class CameraAimBehaviour : MonoBehaviour {
         // Copy texture to transparency material
         transparencyMaterial.SetTexture("_MainTex", defaultMaterial.GetTexture("_MainTex"));
         transparencyMaterial.color = defaultMaterial.color;
+
+        aimDirection = Vector3.forward;
     }
 
     // LateUpdate is called once per frame, after all Updates complete
     void LateUpdate() {
-        Vector3 aimDirection = aim.AimDirection;
+        if (manager.Alive) {
+            aimDirection = aim.AimDirection;
+        }
 
         // get camera lift
         Vector3 rise = Vector3.Cross(aimDirection, transform.right).normalized * cameraRise;
@@ -104,7 +113,10 @@ public class CameraAimBehaviour : MonoBehaviour {
 
     // Determine if player is aiming at something, and where it's aim is intersecting
     public bool RaycastAim(out Vector3 target) {
-        Vector3 aimDirection = aim.AimDirection;
+        if (manager.Alive) {
+            aimDirection = aim.AimDirection;
+        }
+
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, aimDirection, out hit, maxAimDistance, layerMask)) {
             target = hit.point;

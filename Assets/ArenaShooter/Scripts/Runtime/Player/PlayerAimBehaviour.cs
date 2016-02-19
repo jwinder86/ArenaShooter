@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [AddComponentMenu("Scripts/Player/Player Aim Behaviour")]
 public class PlayerAimBehaviour : MonoBehaviour {
+
+    private PlayerManager manager;
 
     // settings
     [Header("Movement")]
@@ -18,7 +20,10 @@ public class PlayerAimBehaviour : MonoBehaviour {
     // rotation around Y axis
     private float yRot;
     
-    // Use this for initialization
+    void Awake() {
+        manager = GetComponent<PlayerManager>();
+    }
+
     void Start() {
         aimDirection = transform.forward;
         yRot = 0f;
@@ -26,13 +31,15 @@ public class PlayerAimBehaviour : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        float xRot = Input.GetAxis("Mouse X") * horizontalSpeed;
-        yRot -= Input.GetAxis("Mouse Y") * verticalSpeed;
-        yRot = Mathf.Clamp(yRot, -85f, 85f);
+        if (manager.Alive) {
+            float xRot = Input.GetAxis("Mouse X") * horizontalSpeed;
+            yRot -= Input.GetAxis("Mouse Y") * verticalSpeed;
+            yRot = Mathf.Clamp(yRot, -85f, 85f);
 
-        // rotate transform first, them adjust aim up/down
-        transform.Rotate(Vector3.up, xRot);
-        aimDirection = transform.forward;
-        aimDirection = Quaternion.AngleAxis(yRot, transform.right) * aimDirection;
+            // rotate transform first, them adjust aim up/down
+            transform.Rotate(Vector3.up, xRot);
+            aimDirection = transform.forward;
+            aimDirection = Quaternion.AngleAxis(yRot, transform.right) * aimDirection;
+        }
     }
 }
