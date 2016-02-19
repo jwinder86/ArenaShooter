@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/ArenaShooter/Scenes/PrototypeEnvironment.unity
+  - enabled: 0
     path: Assets/ArenaShooter/Scenes/TestScene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/ArenaShooter/Scenes/JohnTestScene.unity
